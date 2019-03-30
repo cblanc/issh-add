@@ -24,7 +24,9 @@
     "trailingComma": "es5"
   },
   "mocha": {
-    "spec": "tests/*.ts",
+    "extensions": [
+      "ts"
+    ],
     "exit": true,
     "fullTrace": true,
     "require": [
