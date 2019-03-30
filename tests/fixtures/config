@@ -1,0 +1,13 @@
+Host dev
+  User me
+  Port 22
+  IdentityFile ~/.ssh/keydev
+  Hostname 1.2.3.4
+
+Host github.com
+	Port 22
+	IdentityFile ~/.ssh/github
+
+Host *
+  Port 22
+  IdentityFile ~/.ssh/id_rsa

@@ -1,0 +1,9 @@
+{
+  "extends": "@cablanchard/tsconfig",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "include": [
+    "lib/**/*"
+  ]
+}
