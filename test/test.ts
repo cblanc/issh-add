@@ -49,7 +49,30 @@ describe("index generation", () => {
       const index = generateIndex(extractHostConfigs(config));
       const topResult = index.search("dev")[0];
       assert.equal(topResult.host, "dev");
-      process.stdout.write(JSON.stringify(topResult));
+    });
+    it("allows prefix matching", async () => {
+      const config = await parseConfig(fixturePath);
+      const index = generateIndex(extractHostConfigs(config));
+      const topResult = index.search("githu")[0];
+      assert.equal(topResult.host, "github.com");
+    });
+    it("allows search by user", async () => {
+      const config = await parseConfig(fixturePath);
+      const index = generateIndex(extractHostConfigs(config));
+      const topResult = index.search("me")[0];
+      assert.equal(topResult.host, "dev");
+    });
+    it("allows search by identityfile", async () => {
+      const config = await parseConfig(fixturePath);
+      const index = generateIndex(extractHostConfigs(config));
+      const topResult = index.search("github2")[0];
+      assert.equal(topResult.host, "github.com");
+    });
+    it("allows search by hostname", async () => {
+      const config = await parseConfig(fixturePath);
+      const index = generateIndex(extractHostConfigs(config));
+      const topResult = index.search("1.2.3.4")[0];
+      assert.equal(topResult.host, "dev");
     });
   });
 });
