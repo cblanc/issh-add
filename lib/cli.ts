@@ -28,6 +28,9 @@ interface KeyValueObject {
   [key: string]: string;
 }
 
+/**
+ * toHostConfig
+ */
 export const toHostConfig = (sshConfig: SshConfig): HostConfiguration => {
   const hostConfig: HostConfiguration = { identityFile: [] };
 

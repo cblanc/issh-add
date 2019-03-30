@@ -16,7 +16,7 @@ describe("Parse config", () => {
   });
 });
 
-describe("toHostConfig", () => {
+describe("toHostConfig", async () => {
   it("parses ssh configuration block into config object", async () => {
     const config = await parseConfig(fixturePath);
     assert.deepEqual(toHostConfig(config[0]), {
@@ -25,6 +25,15 @@ describe("toHostConfig", () => {
       port: "22",
       identityFile: ["~/.ssh/keydev"],
       hostName: "1.2.3.4",
+    });
+  });
+
+  it("parses ssh configs with multiple identify files to be tried", async () => {
+    const config = await parseConfig(fixturePath);
+    assert.deepEqual(toHostConfig(config[1]), {
+      host: "github.com",
+      port: "22",
+      identityFile: ["~/.ssh/github", "~/.ssh/github2"],
     });
   });
 });

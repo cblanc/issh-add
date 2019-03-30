@@ -6,7 +6,7 @@ Host dev
 
 Host github.com
 	Port 22
-	IdentityFile ~/.ssh/github
+	IdentityFile ~/.ssh/github ~/.ssh/github2
 
 Host *
   Port 22
