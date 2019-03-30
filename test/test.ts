@@ -1,15 +1,30 @@
 /* tslint:disable:no-magic-numbers */
 
 import { assert } from "chai";
+import { toHostConfig } from "../lib/cli";
 import { parseConfig } from "../lib/index";
 import { resolve } from "path";
 
+const fixturePath = resolve(__dirname, "./fixtures/config");
+
 describe("Parse config", () => {
   it("extracts config from absolute path", async () => {
-    const path = resolve(__dirname, "./fixtures/config");
-    const [first, second, third] = await parseConfig(path);
+    const [first, second, third] = await parseConfig(fixturePath);
     assert.equal(first.value, "dev");
     assert.equal(second.value, "github.com");
     assert.equal(third.value, "*");
+  });
+});
+
+describe("toHostConfig", () => {
+  it("parses ssh configuration block into config object", async () => {
+    const config = await parseConfig(fixturePath);
+    assert.deepEqual(toHostConfig(config[0]), {
+      host: "dev",
+      user: "me",
+      port: "22",
+      identityFile: ["~/.ssh/keydev"],
+      hostName: "1.2.3.4",
+    });
   });
 });
