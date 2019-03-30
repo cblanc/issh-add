@@ -1,6 +1,10 @@
 import { homedir } from "os";
 import { resolve } from "path";
-import { parseConfig, toHostConfig } from "./index";
+import {
+  parseConfig,
+  extractHostConfigs,
+  generateIndex,
+} from "./index";
 
 const path = resolve(homedir(), ".ssh/config");
 
@@ -16,10 +20,14 @@ const log = (o: object): void => {
  */
 export const exec = async () => {
   const config = await parseConfig(path);
-  //
-  // Parse ssh-config
-  const parsedConfigs = config.map(toHostConfig);
-  log(parsedConfigs);
+
+  // Parse host configs
+  const hostConfigs = extractHostConfigs(config);  
+
+  // Generate inverted index
+  const index = generateIndex(hostConfigs);
+
+  log(index.search("github"));
 };
 
 // Render input screen

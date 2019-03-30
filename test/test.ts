@@ -1,7 +1,12 @@
 /* tslint:disable:no-magic-numbers */
 
 import { assert } from "chai";
-import { parseConfig, toHostConfig } from "../lib/index";
+import {
+  parseConfig,
+  toHostConfig,
+  generateIndex,
+  extractHostConfigs,
+} from "../lib/index";
 import { resolve } from "path";
 
 const fixturePath = resolve(__dirname, "./fixtures/config");
@@ -33,6 +38,18 @@ describe("toHostConfig", async () => {
       host: "github.com",
       port: "22",
       identityFile: ["~/.ssh/github", "~/.ssh/github2"],
+    });
+  });
+});
+
+describe("index generation", () => {
+  describe("generateIndex", () => {
+    it("creates an inverted index to search configs and searches by host", async () => {
+      const config = await parseConfig(fixturePath);
+      const index = generateIndex(extractHostConfigs(config));
+      const topResult = index.search("dev")[0];
+      assert.equal(topResult.host, "dev");
+      process.stdout.write(JSON.stringify(topResult));
     });
   });
 });
