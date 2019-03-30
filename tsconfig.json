@@ -1,9 +1,9 @@
 {
   "extends": "@cablanchard/tsconfig",
   "compilerOptions": {
-    "outDir": "dist"
+    "outDir": "dist",
+    "typeRoots": ["./lib/@types/", "./node_modules/@types"]
   },
-  "include": [
-    "lib/**/*"
-  ]
+  "include": ["lib/**/*"],
+  "exclude": ["./lib/@types/"]
 }
