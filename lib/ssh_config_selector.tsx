@@ -12,10 +12,11 @@ interface SshConfigOnSelectHandler {
   (item: Item): void;
 }
 const toLabel = (config: HostConfiguration): string => {
-  const { host, hostName } = config;
-  let label = config.identityFile.join(" | ");
-  if (host) label = `${label} Host: ${host}`;
-  if (hostName) label = `${label} (${hostName})`;
+  const { host, hostName, identityFile } = config;
+  let label = "";
+  if (host) label = `${label}Host: ${host} `;
+  if (hostName) label = `${label}(${hostName}) `;
+  label = `${label} [IdentifyFile Path(s): ${identityFile.join(" | ")}]`;
   return label;
 };
 
