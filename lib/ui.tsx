@@ -9,6 +9,7 @@ import { HostConfiguration } from "./index";
 
 interface CliProps {
   index: Fuse<HostConfiguration>;
+  path: string;
 }
 
 interface CliState {
@@ -39,11 +40,16 @@ export class Ui extends React.PureComponent<CliProps, CliState> {
   render() {
     return (
       <Fragment>
-        <Box marginRight={1}>
-          <Color green>Search SSH Config:</Color>
-        </Box>
         <Box flexGrow={1}>
-          <InkTextInput value={this.state.query} onChange={this.handleChange} />
+          <Box marginRight={1}>
+            Search Host in <Color blue>{this.props.path}</Color>:
+          </Box>
+          <Box>
+            <InkTextInput
+              value={this.state.query}
+              onChange={this.handleChange}
+            />
+          </Box>
         </Box>
         <Box width="100%">
           <SshConfigSelector
@@ -58,9 +64,10 @@ export class Ui extends React.PureComponent<CliProps, CliState> {
 
 interface Options {
   index: Fuse<HostConfiguration>;
+  path: string;
 }
 
 export const renderUi = (options: Options): void => {
-  const { index } = options;
-  render(<Ui index={index} />);
+  const { index, path } = options;
+  render(<Ui index={index} path={path} />);
 };

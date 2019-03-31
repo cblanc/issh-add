@@ -16,7 +16,7 @@ export const exec = async () => {
   const index = generateIndex(hostConfigs);
 
   // Render input screen
-  renderUi({ index });
+  renderUi({ index, path });
 };
 
 // On enter - access ssh-add
