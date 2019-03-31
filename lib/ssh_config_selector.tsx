@@ -1,8 +1,10 @@
 import React from "react";
+import { Box } from "ink";
 import InkSelectInput, { Item } from "ink-select-input";
 interface SshConfigSelectorProps {
   results: HostConfiguration[];
   onSelect: SshConfigOnSelectHandler;
+  maxResults: number;
 }
 import { HostConfiguration } from "./index";
 
@@ -25,19 +27,19 @@ const toItem = (config: HostConfiguration): Item => {
   };
 };
 
-const MAX_RESULTS = 10;
-
 export class SshConfigSelector extends React.PureComponent<
   SshConfigSelectorProps,
   {}
 > {
   items(): Item[] {
-    return this.props.results.slice(0, MAX_RESULTS).map(toItem);
+    return this.props.results.slice(0, this.props.maxResults).map(toItem);
   }
 
   render() {
     return (
-      <InkSelectInput items={this.items()} onSelect={this.props.onSelect} />
+      <Box minHeight={this.props.maxResults}>
+        <InkSelectInput items={this.items()} onSelect={this.props.onSelect} />
+      </Box>
     );
   }
 }

@@ -15,8 +15,9 @@ export const exec = async () => {
   // Generate inverted index
   const index = generateIndex(hostConfigs);
 
+  const maxResults = 10;
   // Render input screen
-  renderUi({ index, path });
+  renderUi({ index, path, maxResults });
 };
 
 // On enter - access ssh-add

@@ -10,6 +10,7 @@ import { HostConfiguration } from "./index";
 interface CliProps {
   index: Fuse<HostConfiguration>;
   path: string;
+  maxResults: number;
 }
 
 interface CliState {
@@ -55,6 +56,7 @@ export class Ui extends React.PureComponent<CliProps, CliState> {
           <SshConfigSelector
             results={this.state.results}
             onSelect={this.handleSelect}
+            maxResults={this.props.maxResults}
           />
         </Box>
       </Fragment>
@@ -65,9 +67,10 @@ export class Ui extends React.PureComponent<CliProps, CliState> {
 interface Options {
   index: Fuse<HostConfiguration>;
   path: string;
+  maxResults: number;
 }
 
 export const renderUi = (options: Options): void => {
-  const { index, path } = options;
-  render(<Ui index={index} path={path} />);
+  const { index, path, maxResults } = options;
+  render(<Ui index={index} path={path} maxResults={maxResults} />);
 };
