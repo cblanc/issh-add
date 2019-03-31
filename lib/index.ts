@@ -1,6 +1,5 @@
 import { parse, SshConfig } from "ssh-config";
 import { readFile } from "fs";
-import Fuse from "fuse.js";
 
 export const parseConfig = (path: string): Promise<SshConfig[]> => {
   return new Promise((resolve, reject) => {
@@ -88,19 +87,6 @@ export const toHostConfig: ConfigParser = sshConfig => {
   if (param === "host") return parseHostBlock(sshConfig);
   // Return void if invalid block detected
   return;
-};
-
-export const generateIndex = (
-  configs: HostConfiguration[]
-): Fuse<HostConfiguration> => {
-  return new Fuse(configs, {
-    shouldSort: true,
-    minMatchCharLength: 3,
-    location: 0,
-    distance: 0,
-    tokenize: true,
-    keys: ["identityFile", "host", "hostName", "user"],
-  });
 };
 
 export const extractHostConfigs = (

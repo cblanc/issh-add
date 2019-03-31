@@ -1,12 +1,8 @@
 /* tslint:disable:no-magic-numbers */
 
 import { assert } from "chai";
-import {
-  parseConfig,
-  toHostConfig,
-  generateIndex,
-  extractHostConfigs,
-} from "../lib/index";
+import { generateIndex } from "../lib/search";
+import { parseConfig, toHostConfig, extractHostConfigs } from "../lib/index";
 import { resolve } from "path";
 
 const fixturePath = resolve(__dirname, "./fixtures/config");

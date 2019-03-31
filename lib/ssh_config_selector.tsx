@@ -4,6 +4,7 @@ interface SshConfigSelectorProps {
   results: HostConfiguration[];
   onSelect: SshConfigOnSelectHandler;
 }
+import { HostConfiguration } from "./index";
 
 interface SshConfigOnSelectHandler {
   (item: Item): void;

@@ -1,7 +1,8 @@
 import { homedir } from "os";
 import { resolve } from "path";
 import { renderUi } from "./ui";
-import { parseConfig, extractHostConfigs, generateIndex } from "./index";
+import { parseConfig, extractHostConfigs } from "./index";
+import { generateIndex } from "./search";
 
 const path = resolve(homedir(), ".ssh/config");
 
