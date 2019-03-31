@@ -17,7 +17,7 @@ export const exec = async () => {
 
   const maxResults = 10;
   // Render input screen
-  renderUi({ index, path, maxResults });
+  renderUi({ index, path, maxResults, hostConfigs });
 };
 
 // On enter - access ssh-add

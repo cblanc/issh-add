@@ -11,6 +11,7 @@ interface CliProps {
   index: Fuse<HostConfiguration>;
   path: string;
   maxResults: number;
+  hostConfigs: HostConfiguration[];
 }
 
 interface CliState {
@@ -38,9 +39,14 @@ export class Ui extends React.PureComponent<CliProps, CliState> {
     process.stdout.write(JSON.stringify(item));
   }
 
+  configLength(): number {
+    return this.props.hostConfigs.length;
+  }
+
   render() {
     return (
       <Fragment>
+        <Color grey>Loaded {this.configLength()} host configurations</Color>
         <Box flexGrow={1}>
           <Box marginRight={1}>
             Search Host in <Color blue>{this.props.path}</Color>:
@@ -68,9 +74,17 @@ interface Options {
   index: Fuse<HostConfiguration>;
   path: string;
   maxResults: number;
+  hostConfigs: HostConfiguration[];
 }
 
 export const renderUi = (options: Options): void => {
-  const { index, path, maxResults } = options;
-  render(<Ui index={index} path={path} maxResults={maxResults} />);
+  const { index, path, maxResults, hostConfigs } = options;
+  render(
+    <Ui
+      index={index}
+      path={path}
+      maxResults={maxResults}
+      hostConfigs={hostConfigs}
+    />
+  );
 };
