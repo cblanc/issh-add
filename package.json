@@ -6,7 +6,7 @@
     "url": "git@github.com:cblanc/issh-add"
   },
   "bin": {
-    "iss-add": "./bin/issh-add"
+    "issh-add": "./bin/issh-add"
   },
   "version": "0.0.1",
   "main": "dist/index.js",
@@ -36,7 +36,8 @@
   },
   "nyc": {
     "include": [
-      "lib/**/*.ts"
+      "lib/**/*.ts",
+      "lib/**/*.tsx"
     ],
     "exclude": [
       "dist/*",
@@ -75,7 +76,6 @@
     "@types/node": "~11.11.8",
     "chai": "~4.2.0",
     "coveralls": "~3.0.2",
-    "fuse.js": "~3.4.4",
     "mocha": "~6.0.0",
     "npm-check-updates": "~3.0.2",
     "nyc": "~13.3.0",
@@ -86,8 +86,11 @@
     "typescript": "~3.3.1"
   },
   "dependencies": {
-    "react": "~16.8.4",
-    "ink": "~2.0.5",
+    "fuse.js": "~3.4.4",
+    "ink": "~2.0.6",
+    "ink-select-input": "vadimdemedes/ink-select-input#master",
+    "ink-text-input": "~3.1.0",
+    "react": "~16.8.6",
     "ssh-config": "~1.1.5"
   }
 }
