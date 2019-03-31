@@ -25,12 +25,14 @@ const toItem = (config: HostConfiguration): Item => {
   };
 };
 
+const MAX_RESULTS = 10;
+
 export class SshConfigSelector extends React.PureComponent<
   SshConfigSelectorProps,
   {}
 > {
   items(): Item[] {
-    return this.props.results.map(toItem);
+    return this.props.results.slice(0, MAX_RESULTS).map(toItem);
   }
 
   render() {
