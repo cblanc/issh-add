@@ -94,9 +94,12 @@ export const generateIndex = (
   configs: HostConfiguration[]
 ): Fuse<HostConfiguration> => {
   return new Fuse(configs, {
-    shouldShort: true,
+    shouldSort: true,
+    minMatchCharLength: 3,
+    location: 0,
+    distance: 0,
     tokenize: true,
-    keys: ["identityFile", "host", "hostName", "user", "port"],
+    keys: ["identityFile", "host", "hostName", "user"],
   });
 };
 
