@@ -16,6 +16,7 @@ export const exec = async () => {
   const index = generateIndex(hostConfigs);
 
   const maxResults = 10;
+
   // Render input screen
   renderUi({ index, path, maxResults, hostConfigs });
 };

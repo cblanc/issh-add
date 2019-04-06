@@ -17,7 +17,7 @@ export const parseConfig = (path: string): Promise<SshConfig[]> => {
  */
 export interface HostConfiguration {
   identityFile: string[];
-  host?: string;
+  host: string;
   hostName?: string;
   user?: string;
   port?: string;
