@@ -1,9 +1,8 @@
 import { Finder } from "./finder";
 import { render } from "ink";
 import { Item } from "ink-select-input";
-import React from "react";
+import React, { useState } from "react";
 import Fuse from "fuse.js";
-import { sshAdd } from "../ssh_add";
 import { HostConfiguration } from "../index";
 
 export interface Props {
@@ -18,54 +17,47 @@ export interface State {
   results: HostConfiguration[];
 }
 
+export interface UpdateQuery {
+  (query: string): void;
+}
+
+export interface OnConfigSelected {
+  (item: Item): void;
+}
+
 // App component essentially acts as the state manager
 // - Receives app config via `props`
 // - Maintains current state in `state`
-export class App extends React.PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      query: "",
-      results: [],
-    };
-    this.updateQuery = this.updateQuery.bind(this);
-    this.selectConfig = this.selectConfig.bind(this);
-  }
+export const App = (props: Props) => {
+  const [query, setQuery] = useState<string>("");
+  const [results, setResults] = useState<HostConfiguration[]>([]);
+  const [selectedConfig, setSelectedConfig] = useState<Item | null>(null);
+  const { hostConfigs, path, maxResults } = props;
 
-  // Update config search term
-  updateQuery(query: string) {
-    const results = this.props.index.search(query);
-    this.setState({ query, results });
-  }
+  // Updates query and search results
+  const updateQuery: UpdateQuery = q => {
+    setQuery(q);
+    setResults(props.index.search(q));
+  };
 
-  // Select a config to be added to ssh agent
-  selectConfig(item: Item) {
-    const { value } = item;
-    if (typeof value !== "string")
-      throw new Error(`Identifyfile not found for ${item.label}`);
-    const identityFiles = value.split(",");
-    for (const file of identityFiles) {
-      sshAdd(file);
-    }
-  }
+  const onConfigSelected: OnConfigSelected = item => setSelectedConfig(item);
 
-  render() {
-    const { query, results } = this.state;
-    const { updateQuery, selectConfig } = this;
-    const { hostConfigs, path, maxResults } = this.props;
-    return (
-      <Finder
-        query={query}
-        updateQuery={updateQuery}
-        hostConfigs={hostConfigs}
-        path={path}
-        selectConfig={selectConfig}
-        maxResults={maxResults}
-        results={results}
-      />
-    );
-  }
-}
+  const currentState = selectedConfig === null ? "finder" : "password";
+
+  process.stdout.write(currentState);
+
+  return (
+    <Finder
+      query={query}
+      updateQuery={updateQuery}
+      hostConfigs={hostConfigs}
+      path={path}
+      onConfigSelected={onConfigSelected}
+      maxResults={maxResults}
+      results={results}
+    />
+  );
+};
 
 interface Options extends Props {}
 

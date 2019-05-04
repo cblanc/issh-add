@@ -1,27 +1,23 @@
 import React, { Fragment } from "react";
 import InkTextInput from "ink-text-input";
-import { Item } from "ink-select-input";
 import { ConfigList } from "./config_list";
 import { Box, Color } from "ink";
-import { Props as AppProps, State as AppState } from "./app";
+import {
+  Props as AppProps,
+  State as AppState,
+  UpdateQuery,
+  OnConfigSelected,
+} from "./app";
 
 type ParentProps = "hostConfigs" | "path" | "maxResults";
 
 type ParentState = "query" | "results";
 
-interface UpdateQuery {
-  (query: string): void;
-}
-
-interface SelectConfig {
-  (item: Item): void;
-}
-
 interface Props
   extends Pick<AppProps, ParentProps>,
     Pick<AppState, ParentState> {
   updateQuery: UpdateQuery;
-  selectConfig: SelectConfig;
+  onConfigSelected: OnConfigSelected;
 }
 
 const NoMatch = (query: string) => (
@@ -34,7 +30,7 @@ export const Finder = (props: Props) => {
   const {
     hostConfigs,
     path,
-    selectConfig,
+    onConfigSelected,
     maxResults,
     query,
     updateQuery,
@@ -52,7 +48,7 @@ export const Finder = (props: Props) => {
     matches = (
       <ConfigList
         results={results}
-        onSelect={selectConfig}
+        onSelect={onConfigSelected}
         maxResults={maxResults}
       />
     );
