@@ -1,27 +1,26 @@
 import { render, Box, Color } from "ink";
 import { Item } from "ink-select-input";
-import { SshConfigSelector } from "./ssh_config_selector";
+import { ConfigList } from "./config_list";
 import React, { Fragment } from "react";
 import InkTextInput from "ink-text-input";
 import Fuse from "fuse.js";
-import { sshAdd } from "./ssh_add";
+import { sshAdd } from "../ssh_add";
+import { HostConfiguration } from "../index";
 
-import { HostConfiguration } from "./index";
-
-interface CliProps {
+interface Props {
   index: Fuse<HostConfiguration>;
   path: string;
   maxResults: number;
   hostConfigs: HostConfiguration[];
 }
 
-interface CliState {
+interface State {
   query: string;
   results: HostConfiguration[];
 }
 
-export class Ui extends React.PureComponent<CliProps, CliState> {
-  constructor(props: CliProps) {
+export class App extends React.PureComponent<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       query: "",
@@ -53,7 +52,7 @@ export class Ui extends React.PureComponent<CliProps, CliState> {
   renderResults() {
     return (
       <Box width="100%">
-        <SshConfigSelector
+        <ConfigList
           results={this.state.results}
           onSelect={this.handleSelect}
           maxResults={this.props.maxResults}
@@ -96,12 +95,12 @@ export class Ui extends React.PureComponent<CliProps, CliState> {
   }
 }
 
-interface Options extends CliProps {}
+interface Options extends Props {}
 
-export const renderUi = (options: Options): void => {
+export const renderApp = (options: Options): void => {
   const { index, path, maxResults, hostConfigs } = options;
   render(
-    <Ui
+    <App
       index={index}
       path={path}
       maxResults={maxResults}

@@ -1,6 +1,6 @@
 import { homedir } from "os";
 import { resolve } from "path";
-import { renderUi } from "./ui";
+import { renderApp } from "./components/app";
 import { parseConfig, extractHostConfigs } from "./index";
 import { generateIndex } from "./search";
 
@@ -18,7 +18,7 @@ export const exec = async () => {
   const maxResults = 10;
 
   // Render input screen
-  renderUi({ index, path, maxResults, hostConfigs });
+  renderApp({ index, path, maxResults, hostConfigs });
 };
 
 // On enter - access ssh-add
