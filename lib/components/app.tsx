@@ -18,6 +18,9 @@ export interface State {
   results: HostConfiguration[];
 }
 
+// App component essentially acts as the state manager
+// - Receives app config via `props`
+// - Maintains current state in `state`
 export class App extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);

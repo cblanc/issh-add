@@ -28,6 +28,8 @@ const NoMatch = (query: string) => (
   <Color red>{`No match found for "${query}"`}</Color>
 );
 
+const QueryPrompt = () => <Color white>Search for a config file</Color>;
+
 export const Finder = (props: Props) => {
   const {
     hostConfigs,
@@ -42,8 +44,10 @@ export const Finder = (props: Props) => {
   const configLength = hostConfigs.length;
 
   let matches;
-  if (results.length === 0) {
-    matches = NoMatch;
+  if (query.length === 0) {
+    matches = QueryPrompt();
+  } else if (results.length === 0) {
+    matches = NoMatch(query);
   } else {
     matches = (
       <ConfigList
