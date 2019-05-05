@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import { Box } from "ink";
 import { OnPasswordSubmitted } from "./app";
 import InkTextInput from "ink-text-input";
@@ -13,7 +13,7 @@ export const PasswordDialog = (props: Props) => {
   const [password, setPassword] = useState("");
 
   return (
-    <Fragment>
+    <>
       <Box width="100%">
         <Box>Enter passphrase for ${identityFile} 🔑 : </Box>
         <InkTextInput
@@ -23,6 +23,6 @@ export const PasswordDialog = (props: Props) => {
           mask="*"
         />
       </Box>
-    </Fragment>
+    </>
   );
 };

@@ -3,7 +3,7 @@ import { render } from "ink";
 import React, { useState } from "react";
 import Fuse from "fuse.js";
 import { HostConfiguration } from "../index";
-import { PasswordDialog } from "./password_dialog";
+import { PasswordDialog } from "./password-dialog";
 
 export interface Props {
   index: Fuse<HostConfiguration>;

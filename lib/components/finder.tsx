@@ -1,6 +1,6 @@
-import React, { Fragment } from "react";
+import React from "react";
 import InkTextInput from "ink-text-input";
-import { ConfigList } from "./config_list";
+import { ConfigList } from "./config-list";
 import { Box, Color } from "ink";
 import {
   Props as AppProps,
@@ -55,7 +55,7 @@ export const Finder = (props: Props) => {
   }
 
   return (
-    <Fragment>
+    <>
       <Color grey>Loaded {configLength} host configurations</Color>
       <Box flexGrow={1}>
         <Box marginRight={1}>
@@ -66,6 +66,6 @@ export const Finder = (props: Props) => {
         </Box>
       </Box>
       <Box width="100%">{matches}</Box>
-    </Fragment>
+    </>
   );
 };
