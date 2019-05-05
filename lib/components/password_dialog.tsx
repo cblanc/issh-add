@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react";
 import { Box } from "ink";
 import { OnPasswordSubmitted } from "./app";
-import TextInput from "ink-text-input";
+import InkTextInput from "ink-text-input";
 
 interface Props {
   onPasswordSubmitted: OnPasswordSubmitted;
@@ -16,7 +16,7 @@ export const PasswordDialog = (props: Props) => {
     <Fragment>
       <Box width="100%">
         <Box>Enter passphrase for ${identityFile} 🔑 : </Box>
-        <TextInput
+        <InkTextInput
           onSubmit={onPasswordSubmitted}
           value={password}
           onChange={setPassword}
