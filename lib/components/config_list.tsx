@@ -10,7 +10,7 @@ interface Props {
 }
 
 interface Handler {
-  (item: Item): void;
+  (files: string[]): void;
 }
 
 // Creates label for host configuration
@@ -23,21 +23,28 @@ const toLabel = (config: HostConfiguration): string => {
   return label;
 };
 
-const toItem = (config: HostConfiguration): Item => {
+const toItem = (config: HostConfiguration, index: number): Item => {
   return {
     label: toLabel(config),
+    key: index,
     value: config.identityFile.join(","),
-    key: config.host,
   };
 };
 
 // Select list of host configurations
 // Invokes `onSelect` when config selected
 export const ConfigList = (props: Props) => {
-  const items = props.results.slice(0, props.maxResults).map(toItem);
+  const { results, maxResults } = props;
+  const items = results.slice(0, maxResults).map(toItem);
+
+  const handleSelect = (item: Item) => {
+    const { key } = item;
+    props.onSelect(results[key as number].identityFile);
+  };
+
   return (
     <Box minHeight={props.maxResults}>
-      <InkSelectInput items={items} onSelect={props.onSelect} />
+      <InkSelectInput items={items} onSelect={handleSelect} />
     </Box>
   );
 };

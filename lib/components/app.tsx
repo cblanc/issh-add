@@ -1,9 +1,9 @@
 import { Finder } from "./finder";
 import { render } from "ink";
-import { Item } from "ink-select-input";
 import React, { useState } from "react";
 import Fuse from "fuse.js";
 import { HostConfiguration } from "../index";
+import { PasswordDialog } from "./password_dialog";
 
 export interface Props {
   index: Fuse<HostConfiguration>;
@@ -17,12 +17,16 @@ export interface State {
   results: HostConfiguration[];
 }
 
+export interface OnPasswordSubmitted {
+  (password: string): void;
+}
+
 export interface UpdateQuery {
   (query: string): void;
 }
 
 export interface OnConfigSelected {
-  (item: Item): void;
+  (identityFiles: string[]): void;
 }
 
 // App component essentially acts as the state manager
@@ -31,7 +35,7 @@ export interface OnConfigSelected {
 export const App = (props: Props) => {
   const [query, setQuery] = useState<string>("");
   const [results, setResults] = useState<HostConfiguration[]>([]);
-  const [selectedConfig, setSelectedConfig] = useState<Item | null>(null);
+  const [identityFiles, setIdentityFiles] = useState<string[]>([]);
   const { hostConfigs, path, maxResults } = props;
 
   // Updates query and search results
@@ -40,11 +44,18 @@ export const App = (props: Props) => {
     setResults(props.index.search(q));
   };
 
-  const onConfigSelected: OnConfigSelected = item => setSelectedConfig(item);
+  const onConfigSelected: OnConfigSelected = files => setIdentityFiles(files);
 
-  const currentState = selectedConfig === null ? "finder" : "password";
+  const onPasswordSubmitted = (password: string) =>
+    process.stdout.write(password);
 
-  process.stdout.write(currentState);
+  if (identityFiles.length > 0)
+    return (
+      <PasswordDialog
+        identityFile={identityFiles[0]}
+        onPasswordSubmitted={onPasswordSubmitted}
+      />
+    );
 
   return (
     <Finder
