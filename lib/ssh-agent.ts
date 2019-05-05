@@ -3,8 +3,6 @@ import { homedir } from "os";
 
 const { SSH_AUTH_SOCK, SSH_AGENT_PID } = process.env;
 
-process.stdout.write(JSON.stringify(process.env));
-
 interface Agent {
   SSH_AUTH_SOCK: string;
   SSH_AGENT_PID: string | undefined;
